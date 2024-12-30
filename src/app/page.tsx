@@ -1,15 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
+import Link from 'next/link'
 
 type Project = {
-  id: string;
-  title: string;
-  description: string;
-  mentor: string;
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-  tags: string[];
-  steps: number;
-};
+  id: string
+  title: string
+  description: string
+  mentor: string
+  difficulty: 'beginner' | 'intermediate' | 'advanced'
+  tags: string[]
+  steps: number
+}
 
 const MOCK_PROJECTS: Project[] = [
   {
@@ -19,7 +18,7 @@ const MOCK_PROJECTS: Project[] = [
     mentor: '김멘토',
     difficulty: 'beginner',
     tags: ['React', 'JavaScript', 'CSS'],
-    steps: 5
+    steps: 5,
   },
   {
     id: '2',
@@ -28,18 +27,18 @@ const MOCK_PROJECTS: Project[] = [
     mentor: '이멘토',
     difficulty: 'intermediate',
     tags: ['NextJS', 'TypeScript', 'TailwindCSS'],
-    steps: 7
-  }
-];
+    steps: 7,
+  },
+]
 
 const getDifficultyColor = (difficulty: Project['difficulty']) => {
   const colors = {
     beginner: 'bg-green-100 text-green-800',
     intermediate: 'bg-yellow-100 text-yellow-800',
-    advanced: 'bg-red-100 text-red-800'
-  };
-  return colors[difficulty];
-};
+    advanced: 'bg-red-100 text-red-800',
+  }
+  return colors[difficulty]
+}
 
 export default function Home() {
   return (
@@ -56,7 +55,7 @@ export default function Home() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {MOCK_PROJECTS.map((project) => (
-            <Link 
+            <Link
               href={`/projects/${project.id}`}
               key={project.id}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-6"
@@ -65,7 +64,9 @@ export default function Home() {
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                   {project.title}
                 </h2>
-                <span className={`px-3 py-1 rounded-full text-sm ${getDifficultyColor(project.difficulty)}`}>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm ${getDifficultyColor(project.difficulty)}`}
+                >
                   {project.difficulty}
                 </span>
               </div>
@@ -74,7 +75,7 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.tags.map((tag) => (
-                  <span 
+                  <span
                     key={tag}
                     className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded text-sm"
                   >
@@ -91,5 +92,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  );
+  )
 }
