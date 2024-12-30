@@ -55,26 +55,80 @@ export type TaskStatus =
   | 'submitted'
   | 'completed'
 
-export type ProjectTask = {
+export interface Task {
   id: string
   stepNumber: number
   taskNumber: number
   title: string
+  description: string
   status: TaskStatus
-  feedback?: string
+  dueDate: string
   submittedAt?: string
   completedAt?: string
-  dueDate: string
   githubUrl?: string
+  feedback?: {
+    comment: string
+    rating: number
+    createdAt: string
+  }
 }
 
-export type ProjectProgress = {
+export interface ProjectProgress {
   projectId: string
+  title: string
   currentStep: number
   totalSteps: number
   completedTasks: number
   totalTasks: number
-  tasks: ProjectTask[]
+  tasks: Task[]
   lastUpdated: string
-  nextDeadline?: string
+  nextDeadline: string
+}
+
+export type ProjectStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED'
+
+export type StepStatus =
+  | 'NOT_STARTED'
+  | 'IN_PROGRESS'
+  | 'SUBMITTED'
+  | 'FEEDBACK'
+  | 'COMPLETED'
+
+export interface ProjectStep {
+  id: string
+  title: string
+  description: string
+  requirements: string[]
+  deadline: Date
+  status: StepStatus
+}
+
+export interface Submission {
+  id: string
+  stepId: string
+  githubUrl: string
+  comment: string
+  submittedAt: Date
+  feedback?: {
+    comment: string
+    status: 'APPROVED' | 'REJECTED'
+    createdAt: Date
+  }
+}
+
+export interface Project {
+  id: string
+  title: string
+  description: string
+  thumbnail: string
+  mentor: {
+    id: string
+    name: string
+    avatar: string
+  }
+  status: ProjectStatus
+  steps: ProjectStep[]
+  submissions: Submission[]
+  createdAt: Date
+  updatedAt: Date
 }
